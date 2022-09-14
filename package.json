@@ -1,6 +1,6 @@
 {
   "name": "ci-cd",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a project to test github actions",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,13 @@
     "type": "git",
     "url": "git+https://github.com/NathanFirmo/ci-cd.git"
   },
-  "keywords": ["ci-cd", "tests", "automated-tests", "node", "github-actions"],
+  "keywords": [
+    "ci-cd",
+    "tests",
+    "automated-tests",
+    "node",
+    "github-actions"
+  ],
   "author": "Nathan Firmo",
   "license": "MIT",
   "bugs": {
