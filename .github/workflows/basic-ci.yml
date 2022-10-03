@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  SECRETS_BASE64: U09NRV9WQVI9J3Rlc3RlJwo=
+  SECRETS_BASE64: ${{ secrets.SECRETS_BASE64 }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
