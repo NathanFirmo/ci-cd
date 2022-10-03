@@ -1,0 +1,83 @@
+version: '3.5'
+
+networks:
+  test-network:
+    name: test-network
+
+services:
+  general-db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./volumes/general-mysql:/var/lib/mysql
+    ports:
+      - 3316:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlroot
+    networks:
+      - test-network
+
+  sensitive-db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./volumes/sensitive-mysql:/var/lib/mysql
+    ports:
+      - 3326:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlroot
+    networks:
+      - test-network
+
+  legacy-db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./volumes/legacy-mysql:/var/lib/mysql
+    ports:
+      - 3336:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlroot
+    networks:
+      - test-network
+
+  test-db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./volumes/test-mysql:/var/lib/mysql
+    ports:
+      - 3346:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlroot
+    networks:
+      - test-network
+
+  mongo-db:
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - test-network
+
+  rabbitmq:
+    build:
+      context: .
+      dockerfile: rabbitmq.Dockerfile
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - test-network
+
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
+    networks:
+      - test-network
+
