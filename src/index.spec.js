@@ -1,10 +1,9 @@
 const { sum } = require('./index')
+import { config } from 'dotenv'
 
 describe('Sum of two numbers', () => {
   it('should be able to sum', () => {
-    console.log({
-      env: process.env
-    })
+    config({ path: process.cwd() + '.env' })
     expect(sum(2, 2)).toBe(4)
   })
 })
