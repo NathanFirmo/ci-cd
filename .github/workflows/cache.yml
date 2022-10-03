@@ -1,32 +1,31 @@
 name: Cache
 
 on:
-  schedule:
-    - cron: '0 0 * * 1,4'
+  push:
+    branches: ['main']
+
   workflow_dispatch:
 
+env:
+  TEST_ENV_VARS: ${{ secrets.TEST_ENV_VARS }}
+
 jobs:
-  cache:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Setup node 16
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.15.1'
-          cache: npm
+      - name: Up test containers
+        run: |
+          docker-compose up -d
 
-      - name: Cache provision
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ./
-          key: modules-${{ hashFiles('docker-compose.yml') }}
+      - name: Load environment variables
+        run: |
+          echo Creating .env file...
+          echo "$TEST_ENV_VARS" | base64 -d > .env
 
-      - name: Pull images
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: docker-compose pull
+      - name: Run tests
+        run: |
+          npm ci
+          npm test
+
