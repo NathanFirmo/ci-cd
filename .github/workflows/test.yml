@@ -19,7 +19,7 @@ jobs:
       - name: Load environment variables
         run: |
           echo Creating .env file...
-          echo $TEST_ENV_VARS | base64 -d > .env
+          echo "$TEST_ENV_VARS" | base64 -d > .env
 
       - name: Run tests
         run: |
