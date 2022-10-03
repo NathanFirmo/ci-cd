@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Up test containers
-        run: |
-          docker-compose up -d
+      # - name: Up test containers
+      #   run: |
+      #     docker-compose up -d
 
       - name: Load environment variables
         run: |
