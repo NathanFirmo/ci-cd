@@ -30,6 +30,8 @@ jobs:
       - name: Load environment variables
         run: |
           echo Creating .env file...
+          echo $secrets.KEYSTORE_BASE64
+          echo $KEYSTORE_BASE64 | base64
           echo $KEYSTORE_BASE64 | base64 -d > $RUNNER_TEMP/.env
 
       - name: Run tests
