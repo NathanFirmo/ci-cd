@@ -12,11 +12,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # - name: Cache Docker images.
+        # uses: ScribeMD/docker-cache@0.2.4
+        # with:
+        #   key: docker-${{ steps.os.outputs.image }}-${{ hashFiles('package-lock.json') }}
+      - name: Cache provision
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./
+          key: modules-${{ hashFiles('docker-compose.yml') }}
+
+      - name: Pull images
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: docker-compose pull
+
       - name: Up test containers
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
         run: |
-          docker-compose pull
           docker-compose up -d
 
       - name: Load environment variables

@@ -1,0 +1,32 @@
+name: Cache
+
+on:
+  schedule:
+    - cron: '0 0 * * 1,4'
+  workflow_dispatch:
+
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.15.1'
+          cache: npm
+
+      - name: Cache provision
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./
+          key: modules-${{ hashFiles('docker-compose.yml') }}
+
+      - name: Pull images
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: docker-compose pull
