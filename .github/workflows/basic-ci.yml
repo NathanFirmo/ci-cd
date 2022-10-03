@@ -9,6 +9,9 @@ on:
 
   workflow_dispatch:
 
+env:
+  KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -24,12 +27,17 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
+      - name: Load environment variables
+        run: |
+          echo Creating .env file...
+          echo $KEYSTORE_BASE64 | base64 -d > $RUNNER_TEMP/.env
+
       - name: Run tests
         run: |
           npm ci
           npm run test
 
-      - name: Run tests
+      - name: Show message
         run: |
           echo "Uhuuu! passed on tests!!!"
 
