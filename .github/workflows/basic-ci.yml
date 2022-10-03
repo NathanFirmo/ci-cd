@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+  SECRETS_BASE64: ${{ secrets.SECRETS_BASE64 }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -30,9 +30,7 @@ jobs:
       - name: Load environment variables
         run: |
           echo Creating .env file...
-          echo $KEYSTORE_BASE64
-          echo $KEYSTORE_BASE64 | base64
-          echo $KEYSTORE_BASE64 | base64 -d > $RUNNER_TEMP/.env
+          echo $SECRETS_BASE64 | base64 -d > $RUNNER_TEMP/.env
 
       - name: Run tests
         run: |
