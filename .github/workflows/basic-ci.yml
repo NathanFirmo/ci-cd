@@ -34,7 +34,6 @@ jobs:
 
       - name: Run tests
         run: |
-          cat .env
           npm ci
           npm run test
 
