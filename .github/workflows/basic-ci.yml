@@ -30,13 +30,11 @@ jobs:
       - name: Load environment variables
         run: |
           echo Creating .env file...
-          echo $SECRETS_BASE64
-          echo $SECRETS_BASE64 | base64 -d
           echo $SECRETS_BASE64 | base64 -d > .env
-          cat .env
 
       - name: Run tests
         run: |
+          cat .env
           npm ci
           npm run test
 
