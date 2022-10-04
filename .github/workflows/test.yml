@@ -30,6 +30,9 @@ jobs:
           echo "$TEST_ENV_VARS" | base64 -d > .env
 
       - name: Run tests
+        run:  docker ps
+
+      - name: Run tests
         run: |
           npm ci
           npm test
