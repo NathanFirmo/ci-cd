@@ -4,7 +4,7 @@
   "description": "This is a project to test github actions",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --reporters=default --reporters=jest-Junit",
     "push:tags": "git push",
     "version:patch": "npm version patch -m 'chore: release version %s' && npm run push:tags",
     "version:minor": "npm version minor -m 'chore: release version %s' && npm run push:tags",
@@ -21,6 +21,15 @@
     "node",
     "github-actions"
   ],
+  "jest-junit": {
+    "outputDirectory": "reports",
+    "outputName": "jest-junit.xml",
+    "ancestorSeparator": " › ",
+    "uniqueOutputName": "false",
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
+  },
   "author": "Nathan Firmo",
   "license": "MIT",
   "bugs": {
@@ -28,7 +37,8 @@
   },
   "homepage": "https://github.com/NathanFirmo/ci-cd#readme",
   "devDependencies": {
-    "jest": "^29.0.3"
+    "jest": "^29.0.3",
+    "jest-junit": "^14.0.1"
   },
   "dependencies": {
     "dotenv": "^16.0.3"
