@@ -12,8 +12,8 @@ const waitForDb = async (currentTry = 5) => {
     )
     console.log('Database is healthy')
   } catch {
-    console.log('Waiting five seconds for database startup')
-    await new Promise((res) => setTimeout(res, 5000))
+    console.log('Waiting 10 seconds for database startup')
+    await new Promise((res) => setTimeout(res, 10000))
     await waitForDb(currentTry)
   }
 }
