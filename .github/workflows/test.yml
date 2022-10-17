@@ -6,17 +6,15 @@ on:
 
   workflow_dispatch:
 
-# env:
-#   TEST_ENV_VARS: ${{ secrets.TEST_ENV_VARS }}
+env:
+  TEST_ENV_VARS: ${{ secrets.TEST_ENV_VARS }}
+  GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.PAT }} 
+      - uses: actions/checkout@v3
 
       - name: Cache Docker images.
         uses: ScribeMD/docker-cache@0.2.4
