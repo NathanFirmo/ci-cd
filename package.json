@@ -21,6 +21,15 @@
     "node",
     "github-actions"
   ],
+  "jest-junit": {
+    "outputDirectory": "reports",
+    "outputName": "jest-junit.xml",
+    "ancestorSeparator": " › ",
+    "uniqueOutputName": "false",
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
+  },
   "author": "Nathan Firmo",
   "license": "MIT",
   "bugs": {
