@@ -1,8 +1,8 @@
 name: Test CI
 
 on:
-  push:
-    branches: ['main']
+  # push:
+  #   branches: ['main']
 
   workflow_dispatch:
 
@@ -44,4 +44,10 @@ jobs:
           name: JEST Tests            # Name of the check run which will be created
           path: reports/jest-*.xml    # Path to test results
           reporter: jest-junit        # Format of test results
+
+      - name: Release
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          npm run version:patch
 
