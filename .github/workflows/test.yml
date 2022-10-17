@@ -47,6 +47,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          npm run version:patch
+          npm version patch -m 'chore: release version %s'
           git push https://${{ secrets.REPO_SCOPED_TOKEN }}@github.com/NathanFirmo/ci-cd.git
 
