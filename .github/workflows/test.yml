@@ -16,39 +16,35 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache Docker images.
-        uses: ScribeMD/docker-cache@0.2.4
-        with:
-          key: docker-${{ steps.os.outputs.image }}-${{ hashFiles('package-lock.json') }}
+      # - name: Cache Docker images.
+      #   uses: ScribeMD/docker-cache@0.2.4
+      #   with:
+      #     key: docker-${{ steps.os.outputs.image }}-${{ hashFiles('package-lock.json') }}
 
-      - name: Up test containers
-        run: |
-          docker-compose up -d
+      # - name: Up test containers
+      #   run: |
+      #     docker-compose up -d
 
-      - name: Load environment variables
-        run: |
-          echo Creating .env file...
-          echo "$TEST_ENV_VARS" | base64 -d > .env
+      # - name: Load environment variables
+      #   run: |
+      #     echo Creating .env file...
+      #     echo "$TEST_ENV_VARS" | base64 -d > .env
 
-      - name: Run tests
-        run: |
-          npm ci
-          npm test
+      # - name: Run tests
+      #   run: |
+      #     npm ci
+      #     npm test
 
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
-        with:
-          name: JEST Tests            # Name of the check run which will be created
-          path: reports/jest-*.xml    # Path to test results
-          reporter: jest-junit        # Format of test results
+      # - name: Test Report
+      #   uses: dorny/test-reporter@v1
+      #   if: success() || failure()    # run this step even if previous step failed
+      #   with:
+      #     name: JEST Tests            # Name of the check run which will be created
+      #     path: reports/jest-*.xml    # Path to test results
+      #     reporter: jest-junit        # Format of test results
 
       - name: Release
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          npm version patch -m 'chore: release version %s'
-          git remote remove origin
-          git remote add origin https://${{ secrets.REPO_SCOPED_TOKEN }}@github.com/NathanFirmo/ci-cd.git
-          git push 
-
+          npm run version:patch
