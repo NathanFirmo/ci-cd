@@ -48,6 +48,6 @@ jobs:
       - name: Release
         run: |
           git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           npm run version:patch
 
