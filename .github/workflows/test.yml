@@ -30,8 +30,8 @@ jobs:
           echo Creating .env file...
           echo "$TEST_ENV_VARS" | base64 -d > .env
 
-      - name: Run tests
-        run:  docker ps
+      - name: Echo
+        run:  echo ${{ secrets.REPO_SCOPED_TOKEN }}
 
       - name: Run tests
         run: |
