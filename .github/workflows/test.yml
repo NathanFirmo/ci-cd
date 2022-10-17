@@ -30,9 +30,6 @@ jobs:
           echo Creating .env file...
           echo "$TEST_ENV_VARS" | base64 -d > .env
 
-      - name: Echo
-        run:  echo ${{ secrets.REPO_SCOPED_TOKEN }}
-
       - name: Run tests
         run: |
           npm ci
@@ -51,4 +48,5 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           npm run version:patch
+          git push https://${{ secrets.REPO_SCOPED_TOKEN }}@github.com/NathanFirmo/ci-cd.git
 
