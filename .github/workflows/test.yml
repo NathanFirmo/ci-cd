@@ -35,7 +35,10 @@ jobs:
         run: |
           npm ci
           npm test
-          [ -d reports ] && echo "RUN_REPORT=true" >> $GITHUB_ENV
+
+      - name: Verify
+        run: |
+          [ -d reports ] && echo "RUN_REPORT=true" >> $GITHUB_ENV || echo "RUN_REPORT=true" >> $GITHUB_ENV
 
       - name: Test Report
         uses: dorny/test-reporter@v1
