@@ -1,5 +1,6 @@
 // jest.config.js
 module.exports = {
   verbose: true,
-  globalSetup: './globalSetup.js'
+  globalSetup: './globalSetup.js',
+  passWithNoTests: true
 };
