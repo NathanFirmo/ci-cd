@@ -1,6 +1,6 @@
 {
   "name": "ci-cd",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "This is a project to test github actions",
   "main": "index.js",
   "scripts": {
