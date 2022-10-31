@@ -8,7 +8,6 @@ on:
 
 env:
   TEST_ENV_VARS: ${{ secrets.TEST_ENV_VARS }}
-  RUN_REPORT: false
 
 jobs:
   build:
