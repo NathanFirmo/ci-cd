@@ -1,8 +1,8 @@
 name: Test CI
 
 on:
-  # push:
-  #   branches: ['main']
+  push:
+    branches: ['main']
 
   workflow_dispatch:
 
@@ -36,7 +36,11 @@ jobs:
         run: |
           npm ci
           npm test
+
+      - name: Verify
+        run: |
           test -f reports/jest-*.xml && RUN_REPORT=true
+          test -f reports/jest-*.xml && echo "O valor de RUN_REPORT é $RUN_REPORT"
 
       - name: Test Report
         uses: dorny/test-reporter@v1
