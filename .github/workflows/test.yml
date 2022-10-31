@@ -39,8 +39,8 @@ jobs:
 
       - name: Verify
         run: |
-          test -f reports/jest-*.xml && RUN_REPORT=true
-          test -f reports/jest-*.xml && echo "O valor de RUN_REPORT é $RUN_REPORT"
+          [ -d reports ] && RUN_REPORT=true
+          [ -d reports ] && echo "O valor de RUN_REPORT é $RUN_REPORT"
 
       - name: Test Report
         uses: dorny/test-reporter@v1
