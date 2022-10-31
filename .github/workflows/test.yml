@@ -36,7 +36,7 @@ jobs:
         run: |
           npm ci
           npm test
-          test -f reports/jest-*.xml && && RUN_REPORT=true
+          test -f reports/jest-*.xml && RUN_REPORT=true
 
       - name: Test Report
         uses: dorny/test-reporter@v1
