@@ -43,7 +43,7 @@ jobs:
 
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: ${{ env.run_report && (success() || failure()) }}  # run this step even if previous step failed
+        if: ${{ env.run_report == 'true' && (success() || failure()) }}  # run this step even if previous step failed
         with:
           name: JEST Tests            # Name of the check run which will be created
           path: reports/jest-*.xml    # Path to test results
