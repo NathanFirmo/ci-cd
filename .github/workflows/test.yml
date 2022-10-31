@@ -32,6 +32,7 @@ jobs:
       #     echo "$TEST_ENV_VARS" | base64 -d > .env
 
       - name: Run tests
+        if: ${{ !startsWith(github.event.release.tag_name, 'ui') }}
         run: |
           npm ci
           npm test
@@ -39,7 +40,7 @@ jobs:
 
       - name: Test Report
         uses: dorny/test-reporter@v1
-        # if: ${{ env.RUN_REPORT == 'true' && (success() || failure()) }}  # run this step even if previous step failed
+        if: ${{ env.RUN_REPORT == 'true' && (success() || failure()) }}  # run this step even if previous step failed
         with:
           name: JEST Tests            # Name of the check run which will be created
           path: reports/jest-*.xml    # Path to test results
