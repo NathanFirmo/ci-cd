@@ -38,12 +38,11 @@ jobs:
 
       - name: Verify
         run: |
-          [ -d reports ] && RUN_REPORT=true
-          [ -d reports ] && echo "O valor de RUN_REPORT é $RUN_REPORT"
+          [ -d reports ] && echo "RUN_REPORT=true" >> $GITHUB_ENV
 
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: ${{ env.RUN_REPORT == true && (success() || failure()) }}  # run this step even if previous step failed
+        if: env.RUN_REPORT == true && (success() || failure())  # run this step even if previous step failed
         with:
           name: JEST Tests            # Name of the check run which will be created
           path: reports/jest-*.xml    # Path to test results
