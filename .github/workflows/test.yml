@@ -1,9 +1,10 @@
 name: Test CI
 
 on:
-  push:
-    branches: ['main']
+  # push:
+  #   branches: ['main']
 
+  release:
   workflow_dispatch:
 
 env:
