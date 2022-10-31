@@ -36,15 +36,15 @@ jobs:
         run: |
           npm ci
           npm test
+          test -f reports/jest-*.xml && RUN_REPORT=true
 
       - name: Verify
         run: |
-          test -f reports/jest-*.xml && RUN_REPORT=true
           test -f reports/jest-*.xml && echo "O valor de RUN_REPORT é $RUN_REPORT"
 
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: fromJSON(env.RUN_REPORT) && (success() || failure())    # run this step even if previous step failed
+        if: fromJSON(env.RUN_REPORT) == 'true' && (success() || failure())    # run this step even if previous step failed
         with:
           name: JEST Tests            # Name of the check run which will be created
           path: reports/jest-*.xml    # Path to test results
