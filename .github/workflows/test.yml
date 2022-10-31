@@ -38,12 +38,12 @@ jobs:
 
       - name: Verify
         run: |
-          [ -d reports ] && echo "RUN_REPORT=true" >> $GITHUB_ENV || echo "RUN_REPORT=false" >> $GITHUB_ENV
+          [ -d reports ] && echo "run_report=true" >> $GITHUB_ENV || echo "run_report=false" >> $GITHUB_ENV
           [ -d reports ] && echo "Folder exists" || echo "Folder does not exist"
 
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: env.RUN_REPORT && (success() || failure())  # run this step even if previous step failed
+        if: ${{ env.run_report && (success() || failure()) }}  # run this step even if previous step failed
         with:
           name: JEST Tests            # Name of the check run which will be created
           path: reports/jest-*.xml    # Path to test results
