@@ -1,8 +1,8 @@
 name: Test CI
 
 on:
-  # push:
-  #   branches: ['main']
+  push:
+    branches: ['main']
 
   release:
     types: [released]
@@ -28,28 +28,31 @@ jobs:
       #   run: |
       #     docker-compose up -d
 
-      # - name: Load environment variables
-      #   run: |
-      #     echo Creating .env file...
-      #     echo "$TEST_ENV_VARS" | base64 -d > .env
-
-      - name: Run tests
-        if: ${{ !startsWith(github.event.release.name, 'ui') }}
+      - name: Load environment variables
         run: |
-          npm ci
-          npm test
-          [ -d reports ] && echo "RUN_REPORT=true" >> $GITHUB_ENV || echo "RUN_REPORT=false" >> $GITHUB_ENV
+          echo Creating .env file...
+          echo "$TEST_ENV_VARS" | base64 -d > .env
 
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: ${{ env.RUN_REPORT == 'true' && (success() || failure()) }}  # run this step even if previous step failed
-        with:
-          name: JEST Tests            # Name of the check run which will be created
-          path: reports/jest-*.xml    # Path to test results
-          reporter: jest-junit        # Format of test results
+      - name: Echo environment
+        run: env 
 
-      - name: Post step
-        run: echo "Hi, I'm a post step running after JEST report"
+      # - name: Run tests
+      #   if: ${{ !startsWith(github.event.release.name, 'ui') }}
+      #   run: |
+      #     npm ci
+      #     npm test
+      #     [ -d reports ] && echo "RUN_REPORT=true" >> $GITHUB_ENV || echo "RUN_REPORT=false" >> $GITHUB_ENV
+
+      # - name: Test Report
+      #   uses: dorny/test-reporter@v1
+      #   if: ${{ env.RUN_REPORT == 'true' && (success() || failure()) }}  # run this step even if previous step failed
+      #   with:
+      #     name: JEST Tests            # Name of the check run which will be created
+      #     path: reports/jest-*.xml    # Path to test results
+      #     reporter: jest-junit        # Format of test results
+
+      # - name: Post step
+      #   run: echo "Hi, I'm a post step running after JEST report"
       # - name: Release
       #   run: |
       #     git config user.name "GitHub Actions Bot"
