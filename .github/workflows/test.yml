@@ -34,7 +34,9 @@ jobs:
           echo "$TEST_ENV_VARS" | base64 -d > .env
 
       - name: Echo environment
-        run: env 
+        run: |
+          env 
+          cat .env
 
       # - name: Run tests
       #   if: ${{ !startsWith(github.event.release.name, 'ui') }}
