@@ -30,6 +30,7 @@ jobs:
         run: |
           echo Creating .env file...
           echo $SECRETS_BASE64 | base64 -d > .env
+          sleep 5
 
       - name: Show message
         run: |
