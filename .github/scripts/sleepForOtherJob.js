@@ -16,7 +16,8 @@ module.exports = async ({ github, context, jobName }) => {
   let jobStatus
   do {
     jobStatus = await getStatusOfJob(jobName)
-    console.log('Waiting 5 seconds until ' + jobName + ' ends')
+    console.log(jobStatus)
+    console.log('Waiting 5 seconds until ' + jobName + ' job ends')
     await new Promise((res) => setTimeout(res, 5000))
   } while (jobStatus === 'in_progress')
 
