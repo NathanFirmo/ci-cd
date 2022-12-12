@@ -12,52 +12,29 @@ env:
   TEST_ENV_VARS: ${{ secrets.TEST_ENV_VARS }}
 
 jobs:
-  build:
-    if: ${{ !startsWith(github.event.release.name, 'ui') }}
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
          token: ${{ secrets.REPO_SCOPED_TOKEN }}
 
-      # - name: Cache Docker images.
-      #   uses: ScribeMD/docker-cache@0.2.4
-      #   with:
-      #     key: docker-${{ steps.os.outputs.image }}-${{ hashFiles('package-lock.json') }}
-
-      # - name: Up test containers
-      #   run: |
-      #     docker-compose up -d
-
-      - name: Load environment variables
+      - name: Wait 
         run: |
-          echo Creating .env file...
-          echo "$TEST_ENV_VARS" | base64 -d > .env
+          sleep 60 
 
-      - name: Echo environment
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+         token: ${{ secrets.REPO_SCOPED_TOKEN }}
+
+      - name: Wait 
         run: |
-          env 
-          cat .env
+          sleep 10 
 
-      # - name: Run tests
-      #   if: ${{ !startsWith(github.event.release.name, 'ui') }}
-      #   run: |
-      #     npm ci
-      #     npm test
-      #     [ -d reports ] && echo "RUN_REPORT=true" >> $GITHUB_ENV || echo "RUN_REPORT=false" >> $GITHUB_ENV
-
-      # - name: Test Report
-      #   uses: dorny/test-reporter@v1
-      #   if: ${{ env.RUN_REPORT == 'true' && (success() || failure()) }}  # run this step even if previous step failed
-      #   with:
-      #     name: JEST Tests            # Name of the check run which will be created
-      #     path: reports/jest-*.xml    # Path to test results
-      #     reporter: jest-junit        # Format of test results
-
-      # - name: Post step
-      #   run: echo "Hi, I'm a post step running after JEST report"
-      # - name: Release
-      #   run: |
-      #     git config user.name "GitHub Actions Bot"
-      #     git config user.email "github-actions[bot]@users.noreply.github.com"
-      #     npm run version:patch
+      - name: Echo
+        run: |
+          echo ${{ jobs }}
+          
