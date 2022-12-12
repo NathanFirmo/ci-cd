@@ -36,13 +36,15 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         with:
           script: |
-           const envContext = JSON.parse(${{ env.GITHUB_CONTEXT }})
-           console.log(envContext)
-           const res = github.rest.actions.listJobsForWorkflowRunAttempt({
-             owner: context.repo.owner,
-             repo: context.repo.repo,
-             run_id: envContext.run_id,
-             attempt_number: envContext.run_attempt,
-           })            
-           console.log({res})
+           console.log(${{ env.GITHUB_RUN_ATTEMPT }})
+           console.log(${{ env.GITHUB_RUN_ID }})
+           // const envContext = JSON.parse(${{ env.GITHUB_CONTEXT }})
+           // console.log(envContext)
+           // const res = github.rest.actions.listJobsForWorkflowRunAttempt({
+           //   owner: context.repo.owner,
+           //   repo: context.repo.repo,
+           //   run_id: envContext.run_id,
+           //   attempt_number: envContext.run_attempt,
+           // })            
+           // console.log({res})
 
