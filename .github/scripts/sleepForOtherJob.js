@@ -11,17 +11,17 @@ module.exports = async ({ github, context, jobName }) => {
     })
     const jobToWait = jobs.find((job) => job.name === jobName)
     console.log(jobToWait)
-    return jobToWait.status
+    return jobToWait
   }
 
-  let jobStatus
+  let jobToWait
   do {
-    jobStatus = await getStatusOfJob(jobName)
+    jobToWait = await getStatusOfJob(jobName)
     console.log(jobStatus)
     console.log('Waiting 5 seconds until ' + jobName + ' job ends')
     await new Promise((res) => setTimeout(res, 5000))
-  } while (jobStatus === 'in_progress')
+  } while (jobToWait.status === 'in_progress')
 
-  if (jobStatus === 'failure')
+  if (jobToWait.conclusion === 'failure')
     throw new Error('The job ' + jobName + ' have failed')
 }
