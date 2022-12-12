@@ -13,11 +13,12 @@ module.exports = async ({ github, context, jobName }) => {
     return jobToWait.status
   }
 
-  let jobStatus = await getStatusOfJob(jobName)
-  while (jobStatus === 'in_progress') {
+  let jobStatus
+  do {
+  jobStatus = await getStatusOfJob(jobName)
     console.log('Waiting 5 seconds until ' + jobName + ' ends')
     await new Promise(res => setTimeout(res, 5000))
-  }
+  } while (jobStatus === 'in_progress')
 
   if (jobStatus === 'failure') throw new Error('The job ' + jobName + ' have failed')
 }
