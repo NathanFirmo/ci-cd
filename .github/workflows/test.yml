@@ -21,7 +21,7 @@ jobs:
 
       - name: Wait 
         run: |
-          false
+          sleep 10
 
   build:
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
 
       - name: Do something 
         run: |
-          sleep 15 
+          sleep 5 
 
       - name: Call deploy action
         uses: actions/github-script@v6
