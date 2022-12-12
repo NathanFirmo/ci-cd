@@ -21,7 +21,7 @@ jobs:
 
       - name: Wait 
         run: |
-          sleep 60 
+          false
 
   build:
     runs-on: ubuntu-latest
