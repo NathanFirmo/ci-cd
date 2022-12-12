@@ -38,9 +38,11 @@ jobs:
 
       - name: Call deploy action
         uses: actions/github-script@v6
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
         with:
           script: |
-           console.log(${{ env.GITHUB_CONTEXT }})
+           console.log(process.env.GITHUB_CONTEXT)
            // const res = github.rest.actions.listJobsForWorkflowRunAttempt({
            //   owner: context.repo.owner,
            //   repo: context.repo.repo,
