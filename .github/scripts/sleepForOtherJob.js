@@ -10,14 +10,12 @@ module.exports = async ({ github, context, jobName }) => {
       attempt_number: envContext.run_attempt,
     })
     const jobToWait = jobs.find((job) => job.name === jobName)
-    console.log(jobToWait)
     return jobToWait
   }
 
   let jobToWait
   do {
     jobToWait = await getStatusOfJob(jobName)
-    console.log(jobStatus)
     console.log('Waiting 5 seconds until ' + jobName + ' job ends')
     await new Promise((res) => setTimeout(res, 5000))
   } while (jobToWait.status === 'in_progress')
