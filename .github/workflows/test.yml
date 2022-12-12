@@ -40,7 +40,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-           console.log(process.env.GITHUB_CONTEXT)
+           console.log(${{ env.GITHUB_CONTEXT }})
            // const res = github.rest.actions.listJobsForWorkflowRunAttempt({
            //   owner: context.repo.owner,
            //   repo: context.repo.repo,
