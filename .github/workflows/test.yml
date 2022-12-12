@@ -36,7 +36,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         with:
           script: |
-           console.log(process.env.GITHUB_CONTEXT)
+           console.log(context)
            const res = github.rest.actions.listJobsForWorkflowRunAttempt({
              owner: context.repo.owner,
              repo: context.repo.repo,
