@@ -21,7 +21,7 @@ jobs:
 
       - name: Wait 
         run: |
-          sleep 30 
+          sleep 60 
 
   build:
     runs-on: ubuntu-latest
@@ -29,6 +29,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
          token: ${{ secrets.REPO_SCOPED_TOKEN }}
+
+      - name: Do something 
+        run: |
+          sleep 15 
 
       - name: Call deploy action
         uses: actions/github-script@v6
@@ -39,3 +43,6 @@ jobs:
             const sleepForOtherJob = require('./.github/scripts/sleepForOtherJob.js')
             await sleepForOtherJob({github, context, jobName: 'test'})
 
+      - name: Do other thing if required job has ended with success 
+        run: |
+          echo 'uhuuuuuu!'
