@@ -30,9 +30,10 @@ jobs:
         with:
          token: ${{ secrets.REPO_SCOPED_TOKEN }}
 
-      # - name: Wait 
-      #   run: |
-      #     sleep 10 
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Call deploy action
         uses: actions/github-script@v6
@@ -41,11 +42,8 @@ jobs:
             const res = github.rest.actions.listJobsForWorkflowRunAttempt({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              run_id: '${{ env.GITHUB_RUN_ID }}',
-              attempt_number: '${{ env.GITHUB_RUN_ID }}',
+              run_id: ${{ env.GITHUB_RUN_ID }},
+              attempt_number: ${{ env.GITHUB_RUN_ATTEMPT }},
             })            
             console.log(res)
 
-      - name: Dump context
-        uses: crazy-max/ghaction-dump-context@v1
-          
