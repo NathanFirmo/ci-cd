@@ -38,11 +38,11 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const res =github.rest.actions.listJobsForWorkflowRunAttempt({
+            const res = github.rest.actions.listJobsForWorkflowRunAttempt({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              run_id: ${{ env.GITHUB_RUN_ID }},
-              attempt_number: ${{ env.GITHUB_RUN_ID }},
+              run_id: '${{ env.GITHUB_RUN_ID }}',
+              attempt_number: '${{ env.GITHUB_RUN_ID }}',
             })            
             console.log(res)
 
