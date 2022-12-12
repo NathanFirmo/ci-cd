@@ -41,8 +41,8 @@ jobs:
             const res =github.rest.actions.listJobsForWorkflowRunAttempt({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              run_id: $GITHUB_RUN_ID,
-              attempt_number: $GITHUB_RUN_ID,
+              run_id: ${{ env.GITHUB_RUN_ID }},
+              attempt_number: ${{ env.GITHUB_RUN_ID }},
             })            
             console.log(res)
 
