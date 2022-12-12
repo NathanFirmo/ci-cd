@@ -37,7 +37,7 @@ jobs:
         with:
           script: |
            const envContext = JSON.parse(process.env.GITHUB_CONTEXT)
-           const res = github.rest.actions.listJobsForWorkflowRunAttempt({
+           const res = await github.rest.actions.listJobsForWorkflowRunAttempt({
              owner: context.repo.owner,
              repo: context.repo.repo,
              run_id: envContext.run_id,
