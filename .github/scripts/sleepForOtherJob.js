@@ -13,6 +13,6 @@ module.exports = async ({ github, context, jobName }) => {
     return jobToWait.status
   }
 
-  let jobStatus = getStatusOfJob(jobName)
+  let jobStatus = await getStatusOfJob(jobName)
   console.log(jobStatus)
 }

@@ -36,6 +36,6 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         with:
           script: |
-            const script = require('./.github/scripts/sleepForOtherJob.js')
-            console.log(script({github, context, jobName: 'test'}))
+            const sleepForOtherJob = require('./.github/scripts/sleepForOtherJob.js')
+            await sleepForOtherJob({github, context, jobName: 'test'})
 
