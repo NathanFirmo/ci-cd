@@ -21,7 +21,7 @@ jobs:
 
       - name: Wait 
         run: |
-          sleep 10 
+          sleep 30 
 
   build:
     runs-on: ubuntu-latest
@@ -36,12 +36,6 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         with:
           script: |
-           const envContext = JSON.parse(process.env.GITHUB_CONTEXT)
-           const res = await github.rest.actions.listJobsForWorkflowRunAttempt({
-             owner: context.repo.owner,
-             repo: context.repo.repo,
-             run_id: envContext.run_id,
-             attempt_number: envContext.run_attempt,
-           })            
-           console.log({res})
+            const script = require('./.github/scripts/sleepForOtherJob.js')
+            console.log(script({github, context, jobName: 'test'}))
 
