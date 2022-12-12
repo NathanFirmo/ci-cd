@@ -10,6 +10,7 @@ module.exports = async ({ github, context, jobName }) => {
       attempt_number: envContext.run_attempt,
     })
     const jobToWait = jobs.find((job) => job.name === jobName)
+    console.log(jobToWait)
     return jobToWait.status
   }
 
