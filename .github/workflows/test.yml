@@ -36,6 +36,6 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         with:
           script: |
-           console.log(${{ env.GITHUB_RUN_ATTEMPT }})
+           console.log(${{ env }})
            console.log(${{ env.GITHUB_RUN_ID }})
 
