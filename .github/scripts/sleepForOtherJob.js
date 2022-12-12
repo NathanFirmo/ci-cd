@@ -1,6 +1,6 @@
 module.exports = async ({ github, context, jobName }) => {
   const envContext = JSON.parse(process.env.GITHUB_CONTEXT)
-  const workspace = require('../package.json')
+  const workspace = require('../../package.json')
   console.log(workspace)
   const getStatusOfJob = async (jobName) => {
     const {
