@@ -21,7 +21,7 @@ jobs:
 
       - name: Wait 
         run: |
-          sleep 60 
+          sleep 10 
 
   build:
     runs-on: ubuntu-latest
@@ -33,6 +33,18 @@ jobs:
       # - name: Wait 
       #   run: |
       #     sleep 10 
+
+      - name: Call deploy action
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const res =github.rest.actions.listJobsForWorkflowRunAttempt({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: $GITHUB_RUN_ID,
+              attempt_number: $GITHUB_RUN_ID,
+            })            
+            console.log(res)
 
       - name: Dump context
         uses: crazy-max/ghaction-dump-context@v1
