@@ -5,5 +5,3 @@
 [![Basic CI](https://github.com/NathanFirmo/ci-cd/actions/workflows/basic-ci.yml/badge.svg)](https://github.com/NathanFirmo/ci-cd/actions/workflows/basic-ci.yml)
 
 This is a simple project to learn github actions and devops.
-
-blablabla
