@@ -23,6 +23,13 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            console.log(github)
+            console.log({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_file_name: 'test.yml',
+              per_page: 1
+            })
             const {
               data
             } = await github.rest.actions.listWorkflowRuns({
