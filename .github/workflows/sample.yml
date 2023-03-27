@@ -28,7 +28,7 @@ jobs:
             } = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_file_name: 'test.yml',
+              workflow_id: 'test.yml',
               per_page: 1,
               status: 'in_progress'
             }) 
