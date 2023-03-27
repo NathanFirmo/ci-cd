@@ -1,0 +1,35 @@
+name: Sample
+
+on:
+  push:
+    branches: ['main']
+
+  release:
+    types: [released]
+  workflow_dispatch:
+
+env:
+  TEST_ENV_VARS: ${{ secrets.TEST_ENV_VARS }}
+
+jobs:
+  call-gh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+         token: ${{ secrets.REPO_SCOPED_TOKEN }}
+
+      - name: Call deploy action
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const {
+              data
+            } = await github.rest.actions.listJobsForWorkflowRunAttempt({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_file_name: 'test.yml',
+              per_page: 1
+            }) 
+
+            console.log(data)
