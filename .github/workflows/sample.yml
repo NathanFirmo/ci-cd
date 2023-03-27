@@ -25,7 +25,7 @@ jobs:
           script: |
             const {
               data
-            } = await github.rest.actions.listJobsForWorkflowRunAttempt({
+            } = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_file_name: 'test.yml',
