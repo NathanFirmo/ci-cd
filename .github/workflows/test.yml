@@ -9,13 +9,28 @@ on:
   workflow_dispatch:
 
 jobs:
+  sample-job:	
+    runs-on: ubuntu-latest	
+    steps:	
+      - uses: actions/checkout@v3	
+        with:	
+         token: ${{ secrets.GITHUB_TOKEN  }}	
+
+      - name: Wait 	
+        run: |	
+          sleep 60	
+
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Wait 
-        uses: NathanFirmo/wait-for-other-action@v1.0.0
+      - uses: NathanFirmo/wait-for-other-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           workflow: 'sample.yml'
+
+      - uses: NathanFirmo/wait-for-other-job@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          job: 'sample-job'
