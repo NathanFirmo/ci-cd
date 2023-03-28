@@ -1,36 +1,19 @@
-name: Sample
+name: Sample Workflow	
 
-on:
-  push:
-    branches: ['main']
+on:	
+  push:	
+    branches: ['main']	
 
-  release:
-    types: [released]
-  workflow_dispatch:
+run-name: Sampe Workflow	
 
-env:
-  TEST_ENV_VARS: ${{ secrets.TEST_ENV_VARS }}
+jobs:	
+  test:	
+    runs-on: ubuntu-latest	
+    steps:	
+      - uses: actions/checkout@v3	
+        with:	
+         token: ${{ secrets.GITHUB_TOKEN  }}	
 
-jobs:
-  call-gh:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-         token: ${{ secrets.REPO_SCOPED_TOKEN }}
-
-      - name: Call deploy action
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const {
-              data
-            } = await github.rest.actions.listWorkflowRuns({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'test.yml',
-              per_page: 1,
-              status: 'in_progress'
-            }) 
-
-            console.log(data)
+      - name: Wait 	
+        run: |	
+          sleep 60	
