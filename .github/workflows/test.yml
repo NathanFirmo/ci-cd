@@ -9,14 +9,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  wait:
     runs-on: ubuntu-latest
     steps:
       - name: Call notification
         run: |
-          curl --request POST \
-            --url '${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}' \
-            --header 'Content-Type: application/json' \
-            --data '{
-            "text": "Teste"
-          }'
+          wait 10
+          false
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait until test finishes
+        uses: NathanFirmo/wait-for-other-job@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          job: 'wait'
+
+      - name: Done
+        run: echo done
+
