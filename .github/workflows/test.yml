@@ -15,19 +15,19 @@ jobs:
       - name: Call notification
         run: |
           sleep 10
-          false
 
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Wait until test finishes
-        uses: NathanFirmo/wait-for-other-job@v1
+        uses: NathanFirmo/wait-for-other-job@v1.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          failOnJobError: true
           job: 'wait'
 
       - name: Wait for other action
-        uses: NathanFirmo/wait-for-other-action@v1
+        uses: NathanFirmo/wait-for-other-action@v1.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           workflow: 'wait.yml'
